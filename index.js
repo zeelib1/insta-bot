@@ -1,13 +1,14 @@
 require("dotenv").config();
 // const cron = require("node-cron");
 const express = require("express");
+const path = require("path");
 
 const getImage = require("./imageGenerator");
 const compressImage = require("./reduceImage");
 const postToInsta = require("./uploadLocalImage");
 
 const app = express();
-const port = process.env.PORT || 3000; // Set the port
+const port = process.env.PORT || 3001; // Set the port
 // Get image from DALLE and download it.
 async function main() {
   try {
@@ -21,7 +22,8 @@ async function main() {
     console.error(error);
   }
 }
-
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, "public")));
 // Define a route
 app.get("/post-image", async (req, res) => {
   const result = await main();
