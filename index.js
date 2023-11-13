@@ -8,7 +8,7 @@ const compressImage = require("./reduceImage");
 const postToInsta = require("./uploadLocalImage");
 
 const app = express();
-const port = process.env.PORT || 3001; // Set the port
+const port = process.env.PORT || 3000; // Set the port
 // Get image from DALLE and download it.
 async function main() {
   try {
