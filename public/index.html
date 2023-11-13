@@ -12,7 +12,7 @@
       document
         .getElementById("postImageButton")
         .addEventListener("click", function () {
-          fetch("https://insta-bot-e5yb.onrender.com/post-image")
+          fetch("/post-image")
             .then((response) => response.text())
             .then((data) => {
               document.getElementById("responseText").textContent = data;
