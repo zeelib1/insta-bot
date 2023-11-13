@@ -21,10 +21,10 @@
     "node-cron": "^3.0.3",
     "openai": "^4.17.4",
     "request-promise": "^4.2.6",
-    "sharp": "^0.32.6"
+    "sharp": "^0.32.6",
+    "serve": "^13.0.2"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0",
-    "serve": "^13.0.2"
+    "concurrently": "^7.0.0"
   }
 }
