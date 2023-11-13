@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Post Image</title>
+  </head>
+  <body>
+    <button id="postImageButton">Post Image to Instagram</button>
+    <p id="responseText"></p>
+
+    <script>
+      document
+        .getElementById("postImageButton")
+        .addEventListener("click", function () {
+          fetch("http://localhost:3000/post-image")
+            .then((response) => response.text())
+            .then((data) => {
+              document.getElementById("responseText").textContent = data;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              document.getElementById("responseText").textContent =
+                "Error occurred";
+            });
+        });
+    </script>
+  </body>
+</html>
