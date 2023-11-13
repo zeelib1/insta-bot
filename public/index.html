@@ -1,38 +1,48 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Post Image</title>
-  </head>
-  <body>
-    <button id="postImageButton">Post Image to Instagram</button>
-    <p id="responseText"></p>
-    <input type="text" />
-
-    <script>
-      document
-        .getElementById("postImageButton")
-        .addEventListener("click", function () {
-          fetch("http://localhost:3000/post-image")
-            .then((response) => response.text())
-            .then((data) => {
-              document.getElementById("responseText").textContent = data;
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              document.getElementById("responseText").textContent =
-                "Error occurred";
-            });
-        });
-    </script>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Post Image</title>
+    <style>
+      body {
+        text-align: center;
+        padding-top: 20vh; /* Center vertically */
+      }
+      #postForm {
+        display: flex;
+        flex-direction: column;
+      }
+      input,
+      button {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      button {
+        background-color: lightcoral;
+        color: white;
+        padding: 1em 3em;
+        border: none;
+        border-radius: 0.35em;
+        cursor: pointer;
+      }
+      #inputText {
+        width: 50%; /* Make input wider */
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      #responsePopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #ddd;
+        padding: 20px;
+        background-color: white;
+        z-index: 1000;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      }
+    </style>
   </head>
   <body>
     <form id="postForm">
@@ -42,6 +52,7 @@
       </button>
     </form>
     <p id="responseText"></p>
+    <div id="responsePopup">Prompt submitted!</div>
 
     <script>
       document
@@ -50,6 +61,14 @@
           event.preventDefault(); // Prevent the form from submitting in the traditional way
 
           const inputVal = document.getElementById("inputText").value;
+          document.getElementById("inputText").value = ""; // Clear the input field
+
+          // Show popup
+          const popup = document.getElementById("responsePopup");
+          popup.style.display = "block";
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 1000); // Hide popup after 1 second
 
           fetch("/post-image", {
             method: "POST",
