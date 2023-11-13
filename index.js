@@ -6,14 +6,18 @@ const path = require("path");
 const getImage = require("./imageGenerator");
 const compressImage = require("./reduceImage");
 const postToInsta = require("./uploadLocalImage");
+const cors = require("cors");
 
 const app = express();
+// Middleware to parse JSON bodies
+app.use(express.json());
+app.use(cors());
 const port = process.env.PORT || 3000; // Set the port
 // Get image from DALLE and download it.
-async function main() {
+async function main(inputString) {
   try {
     // Get image from DALLE and download locally
-    await getImage();
+    await getImage(inputString);
     // Reduce image size usage
     await compressImage("./downloadedImage.jpeg", "./compressedImage.jpeg");
     // Post to Instagram
@@ -29,8 +33,18 @@ app.get("/post-image", async (req, res) => {
   const result = await main();
   res.send(result);
 });
+
+// Handle POST request
+app.post("/post-image", async (req, res) => {
+  const inputString = req.body.text; // Retrieve the input string from the request body
+  console.log("Received string:", inputString);
+  const result = await main(inputString);
+  res.send(result);
+  // Your logic to handle the input string...
+});
+
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "path_to_your_html_file.html"));
+  res.sendFile(path.join(__dirname, "./public"));
 });
 
 // Start the server

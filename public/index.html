@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,12 +7,57 @@
   <body>
     <button id="postImageButton">Post Image to Instagram</button>
     <p id="responseText"></p>
+    <input type="text" />
 
     <script>
       document
         .getElementById("postImageButton")
         .addEventListener("click", function () {
-          fetch("/post-image")
+          fetch("http://localhost:3000/post-image")
+            .then((response) => response.text())
+            .then((data) => {
+              document.getElementById("responseText").textContent = data;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              document.getElementById("responseText").textContent =
+                "Error occurred";
+            });
+        });
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Post Image</title>
+  </head>
+  <body>
+    <form id="postForm">
+      <input type="text" id="inputText" placeholder="Enter text here" />
+      <button type="submit" id="postImageButton">
+        Post Image to Instagram
+      </button>
+    </form>
+    <p id="responseText"></p>
+
+    <script>
+      document
+        .getElementById("postForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+          const inputVal = document.getElementById("inputText").value;
+
+          fetch("http://localhost:3000/post-image", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: inputVal }),
+          })
             .then((response) => response.text())
             .then((data) => {
               document.getElementById("responseText").textContent = data;

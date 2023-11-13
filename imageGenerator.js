@@ -7,11 +7,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAPI_KEY,
 });
 
-async function getImage() {
+async function getImage(inputString) {
   try {
     const response = await openai.images.generate({
       model: "dall-e-3",
-      prompt: "Random cute dog",
+      prompt: inputString,
       n: 1,
       response_format: "url",
       style: "vivid",
