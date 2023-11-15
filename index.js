@@ -39,7 +39,5 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-// Schedule the task to run every hour
-//cron.schedule("0 * * * *", main);
-// Schedule the task to run every 5 minutes
-cron.schedule("*/60 * * * *", main);
+// Schedule the task to run every 30 minutes
+cron.schedule("*/30 * * * *", main);
