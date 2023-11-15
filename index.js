@@ -1,5 +1,5 @@
 require("dotenv").config();
-// const cron = require("node-cron");
+const cron = require("node-cron");
 const express = require("express");
 const path = require("path");
 
@@ -34,23 +34,10 @@ app.get("/post-image", async (req, res) => {
   res.send(result);
 });
 
-// Handle POST request
-app.post("/post-image", async (req, res) => {
-  const inputString = req.body.text; // Retrieve the input string from the request body
-  console.log("Received string:", inputString);
-  const result = await main(inputString);
-  res.send(result);
-  // Your logic to handle the input string...
-});
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public"));
-});
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-// Schedule the task to run every 30 seconds
-// cron.schedule("*/100 * * * * *", main);
+// Schedule the task to run every hour
+cron.schedule("0 * * * *", main);

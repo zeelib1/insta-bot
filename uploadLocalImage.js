@@ -3,11 +3,14 @@ require("dotenv").config();
 const express = require("express");
 const getImage = require("./imageGenerator");
 const { IgApiClient } = require("instagram-private-api");
+const generateCaption = require("./generateCaption");
 const fs = require("fs").promises; // Add this line
-
 const postToInsta = async () => {
   try {
     const ig = new IgApiClient();
+    const caption = await generateCaption();
+    console.log("CAPTION", caption);
+
     ig.state.generateDevice(process.env.IG_USERNAME);
     await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
     const url = await getImage().then((data) => data);
@@ -17,7 +20,7 @@ const postToInsta = async () => {
 
     await ig.publish.photo({
       file: imageBuffer,
-      caption: "Wow, what a nice pic!",
+      caption: caption,
     });
 
     // After successful upload, delete the images
