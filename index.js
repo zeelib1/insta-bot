@@ -42,4 +42,4 @@ app.listen(port, () => {
 // Schedule the task to run every hour
 //cron.schedule("0 * * * *", main);
 // Schedule the task to run every 5 minutes
-cron.schedule("*/2 * * * *", main);
+cron.schedule("*/60 * * * *", main);
