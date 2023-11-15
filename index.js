@@ -40,4 +40,4 @@ app.listen(port, () => {
 });
 
 // Schedule the task to run every 30 minutes
-cron.schedule("*/30 * * * *", main);
+cron.schedule("*/1 * * * *", main);
